@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: confluence-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: confluence-test
+  template:
+    metadata:
+      labels:
+        app: confluence-test
+    spec:
+      containers:
+      - name: confluence-test
+        image: atlassian/confluence-server
+        ports:
+        - containerPort: 8090
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2000Mi"
+          requests:
+            cpu: "1"
+            memory: "2000Mi"
+        volumeMounts:
+        - name: home
+          mountPath: /var/atlassian/application-data/confluence
+        livenessProbe:
+          httpGet:
+            path: /index.html
+            port: 8090
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      volumes:
+      - name: home
+        persistentVolumeClaim:
+        claimName: confluence-test-home-claim  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: confluence-test-loadbalancer
+spec:
+  selector:
+    app: confluence-test
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8090         
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: confluence-test-home
+  labels:
+    name: confluence-test-home
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 25Gi
+  mountOptions:
+   - hard
+   - nfsver=4.1
+  nfs:
+    server: 10.12.9.241
+    path: /confluence
+---
+apiVersion: v1
+metadata:
+  name: confluence-test-home-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 25Gi
+  storageClassName: ""
+  selector:
+    matchLabels:
+      name: "confluence-test-home"
