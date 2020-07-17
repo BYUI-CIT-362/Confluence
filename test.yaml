@@ -69,6 +69,7 @@ spec:
     path: /confluence
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: confluence-test-home-claim
 spec:
