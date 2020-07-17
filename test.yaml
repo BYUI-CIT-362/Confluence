@@ -36,7 +36,7 @@ spec:
       volumes:
       - name: home
         persistentVolumeClaim:
-        claimName: confluence-test-home-claim  
+          claimName: confluence-test-home-claim  
 ---
 apiVersion: v1
 kind: Service
