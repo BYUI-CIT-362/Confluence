@@ -65,8 +65,8 @@ spec:
    - hard
    - nfsver=4.1
   nfs:
-    server: 10.12.9.241
-    path: /confluence
+    server: 10.12.9.14
+    path: /resumes
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
