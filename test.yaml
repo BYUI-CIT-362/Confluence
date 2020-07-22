@@ -61,9 +61,6 @@ spec:
     - ReadWriteMany
   capacity:
     storage: 25Gi
-  mountOptions:
-   - hard
-   - nfsver=4.1
   nfs:
     server: 10.12.9.241
     path: /confluence
