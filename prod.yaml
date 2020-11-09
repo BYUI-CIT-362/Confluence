@@ -15,15 +15,18 @@ spec:
       containers:
       - name: confluence-prod
         image: atlassian/confluence-server
+        env:
+        - name: JVM_MAXIMUM_MEMORY
+          value: "5120m"
         ports:
         - containerPort: 8090
         resources:
           limits:
-            cpu: "1"
-            memory: "2000Mi"
+            cpu: "2"
+            memory: "8000Mi"
           requests:
-            cpu: "1"
-            memory: "2000Mi"
+            cpu: "2"
+            memory: "8000Mi"
         volumeMounts:
         - name: home
           mountPath: /var/atlassian/application-data/confluence
@@ -61,8 +64,11 @@ spec:
     - ReadWriteMany
   capacity:
     storage: 25Gi
+  mountOptions:
+    - hard
+    - nfsvers=4.1
   nfs:
-    server: 10.12.15.66 
+    server: 10.102.191.21
     path: /confluence
 ---
 apiVersion: v1
