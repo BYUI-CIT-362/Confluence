@@ -42,6 +42,10 @@ spec:
       - name: home
         persistentVolumeClaim:
           claimName: confluence-prod-home-claim  
+      - name: confluence-libs
+        persistentVolumeClaim:
+          claimName: confluence-libs-claim
+
 ---
 apiVersion: v1
 kind: Service
@@ -105,3 +109,18 @@ spec:
   selector:
     matchLabels:
       name: "confluence-prod-home"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: confluence-libs-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ""
+  selector:
+    matchLabels:
+      name: "confluence-libs"      
