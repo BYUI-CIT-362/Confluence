@@ -17,7 +17,7 @@ spec:
         image: atlassian/confluence-server
         env:
         - name: JVM_MAXIMUM_MEMORY
-          value: "5120m"
+          value: "7000m"
         ports:
         - containerPort: 8090
         resources:
