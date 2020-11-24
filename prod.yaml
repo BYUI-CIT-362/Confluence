@@ -28,10 +28,8 @@ spec:
             cpu: "2"
             memory: "8000Mi"
         volumeMounts:
-        - name: home
+        - name: confluence-data
           mountPath: /var/atlassian/application-data/confluence
-        - name: confluence-libs
-          mountPath: /opt/atlassian/confluence/confluence/WEB-INF/lib  
         livenessProbe:
           httpGet:
             path: /index.html
@@ -46,6 +44,14 @@ spec:
       - name: confluence-libs
         persistentVolumeClaim:
           claimName: confluence-libs-claim
+  volumeClaimTemplates:
+  - metadata:
+      name: confluence-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 25Gi
 
 ---
 apiVersion: v1
@@ -59,69 +65,3 @@ spec:
   ports:
   - port: 80
     targetPort: 8090         
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: confluence-prod-home
-  labels:
-    name: confluence-prod-home
-spec:
-  accessModes:
-    - ReadWriteMany
-  capacity:
-    storage: 25Gi
-  mountOptions:
-    - hard
-    - nfsvers=4.1
-  nfs:
-    server: 10.102.191.21
-    path: /confluence
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: confluence-libs
-  labels:
-    name: confluence-libs
-spec:
-  accessModes:
-    - ReadWriteMany
-  capacity:
-    storage: 25Gi
-  mountOptions:
-    - hard
-    - nfsvers=4.1
-  nfs:
-    server: 10.102.191.21
-    path: /confluence-libs
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: confluence-prod-home-claim
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 25Gi
-  storageClassName: ""
-  selector:
-    matchLabels:
-      name: "confluence-prod-home"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: confluence-libs-claim
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: ""
-  selector:
-    matchLabels:
-      name: "confluence-libs"      
