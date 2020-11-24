@@ -23,7 +23,7 @@ steps:
   id: Stop Production Pods
   args:
     - 'scale'
-    - 'StatefulSet'
+    - 'deploy'
     - 'confluence-prod'
     - '--replicas=0'
   env:
@@ -46,7 +46,7 @@ steps:
   id: Scale Production Pods
   args:
   - 'scale'
-  - 'StatefulSet'
+  - 'deploy'
   - 'confluence-prod'
   - '--replicas=1'
   env:
