@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   name: confluence-prod
 spec:
+  serviceName: confluence-prod-loadbalancer
   replicas: 1
   selector:
     matchLabels:
