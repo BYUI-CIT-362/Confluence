@@ -37,13 +37,6 @@ spec:
           initialDelaySeconds: 300
           periodSeconds: 30
           timeoutSeconds: 300
-      volumes:
-      - name: home
-        persistentVolumeClaim:
-          claimName: confluence-prod-home-claim  
-      - name: confluence-libs
-        persistentVolumeClaim:
-          claimName: confluence-libs-claim
   volumeClaimTemplates:
   - metadata:
       name: confluence-data
