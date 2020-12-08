@@ -33,10 +33,10 @@ spec:
           mountPath: /var/atlassian/application-data/confluence
         livenessProbe:
           httpGet:
-            path: /index.html
+            path: /
             port: 8090
           initialDelaySeconds: 300
-          periodSeconds: 30
+          periodSeconds: 300
           timeoutSeconds: 300
   volumeClaimTemplates:
   - metadata:
