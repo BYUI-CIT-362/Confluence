@@ -1,4 +1,4 @@
-#Confluence
+# Confluence
 This is just a generic Confluence container that was created for kubernetes. To run locally:
 
 `docker build . -t confluence`
