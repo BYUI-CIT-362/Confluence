@@ -1,2 +1,1 @@
 FROM atlassian/confluence-server
-

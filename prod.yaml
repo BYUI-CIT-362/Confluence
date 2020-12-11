@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: confluence-prod
 spec:
+  serviceName: confluence-prod-loadbalancer
   replicas: 1
   selector:
     matchLabels:
@@ -15,21 +16,24 @@ spec:
       containers:
       - name: confluence-prod
         image: atlassian/confluence-server
+        env:
+        - name: JVM_MAXIMUM_MEMORY
+          value: "7000m"
         ports:
         - containerPort: 8090
         resources:
           limits:
-            cpu: "1"
-            memory: "2000Mi"
+            cpu: "2"
+            memory: "8000Mi"
           requests:
-            cpu: "1"
-            memory: "2000Mi"
+            cpu: "2"
+            memory: "8000Mi"
         volumeMounts:
-        - name: home
+        - name: confluence-data
           mountPath: /var/atlassian/application-data/confluence
         livenessProbe:
           httpGet:
-            path: /index.html
+            path: /
             port: 8090
           initialDelaySeconds: 300
           periodSeconds: 30
@@ -112,3 +116,4 @@ metadata:
 spec:
   domains:
     -  confluence.cit326.com
+
