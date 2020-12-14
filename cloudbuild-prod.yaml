@@ -40,6 +40,7 @@ steps:
   - --output=/tmp/outputdev
   - --location=us-east1-b
   - --cluster=cluster-1 
+  timeout: 600s
 
   # This step starts the nfs pod
 - name: 'gcr.io/cloud-builders/kubectl'
@@ -52,3 +53,7 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'  
+
+
+
+
