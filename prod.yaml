@@ -20,7 +20,7 @@ spec:
             - name: JVM_MAXIMUM_MEMORY
               value: "7000m"
           ports:
-            - containerPort: 8090
+            - containerPort: 443
           resources:
             limits:
               cpu: "2"
