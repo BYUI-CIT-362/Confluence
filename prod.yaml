@@ -90,4 +90,4 @@ metadata:
   name: confluence-certificate
 spec:
   domains:
-    - confluence.cit326.com
+    - confluence.cit362.com
