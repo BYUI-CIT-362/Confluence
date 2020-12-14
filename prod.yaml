@@ -38,14 +38,14 @@ spec:
             initialDelaySeconds: 300
             periodSeconds: 300
             timeoutSeconds: 300
-      volumeClaimTemplates:
-        - metadata:
-            name: confluence-data
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              request:
-                storage: 25Gi
+    volumeClaimTemplates:
+      - metadata:
+          name: confluence-data
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            request:
+              storage: 25Gi
 # ---
 # apiVersion: v1
 # kind: PersistentVolume
