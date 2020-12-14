@@ -46,36 +46,36 @@ spec:
             resources:
               request:
                 storage: 25Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: confluence-prod-home
-  labels:
-    name: confluence-prod-home
-spec:
-  accessModes:
-    - ReadWriteMany
-  capacity:
-    storage: 25Gi
-  nfs:
-    server: 10.12.15.66
-    path: /confluence
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: confluence-prod-home-claim
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 25Gi
-  storageClassName: ""
-  selector:
-    matchLabels:
-      name: "confluence-prod-home"
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: confluence-prod-home
+#   labels:
+#     name: confluence-prod-home
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   capacity:
+#     storage: 25Gi
+#   nfs:
+#     server: 10.12.15.66
+#     path: /confluence
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: confluence-prod-home-claim
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 25Gi
+#   storageClassName: ""
+#   selector:
+#     matchLabels:
+#       name: "confluence-prod-home"
 ---
 apiVersion: v1
 kind: Service
