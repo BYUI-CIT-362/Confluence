@@ -31,13 +31,19 @@ spec:
           volumeMounts:
             - name: confluence-data
               mountPath: /var/atlassian/application-data/confluence
-          livenessProbe:
+          livenessProbe: 
             httpGet:
               path: /
               port: 8090
             initialDelaySeconds: 300
             periodSeconds: 300
             timeoutSeconds: 300
+          readinessProbe: 
+            httpGet:
+              path: /
+              port: 8090
+            initialDelaySeconds: 300
+            periodSeconds: 300          
   volumeClaimTemplates:
   - metadata:
       name: confluence-data
