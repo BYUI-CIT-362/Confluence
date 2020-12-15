@@ -35,15 +35,16 @@ spec:
             httpGet:
               path: /
               port: 8090
-            initialDelaySeconds: 300
             periodSeconds: 300
-            timeoutSeconds: 300
+            timeoutSeconds: 10
           readinessProbe: 
             httpGet:
               path: /
               port: 8090
             initialDelaySeconds: 300
-            periodSeconds: 300          
+            periodSeconds: 10
+            failureThreshold: 10          
+            timeoutSeconds: 10            
   volumeClaimTemplates:
   - metadata:
       name: confluence-data
