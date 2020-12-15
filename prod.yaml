@@ -31,13 +31,20 @@ spec:
           volumeMounts:
             - name: confluence-data
               mountPath: /var/atlassian/application-data/confluence
-          livenessProbe:
+          livenessProbe: 
+            httpGet:
+              path: /
+              port: 8090
+            periodSeconds: 300
+            timeoutSeconds: 10
+          readinessProbe: 
             httpGet:
               path: /
               port: 8090
             initialDelaySeconds: 300
-            periodSeconds: 300
-            timeoutSeconds: 300
+            periodSeconds: 10
+            failureThreshold: 10          
+            timeoutSeconds: 10            
   volumeClaimTemplates:
   - metadata:
       name: confluence-data
@@ -90,4 +97,4 @@ metadata:
   name: confluence-prod-certificate
 spec:
   domains:
-    - confluence.cit326.com
+    - confluence.cit362.com
