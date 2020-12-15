@@ -40,6 +40,7 @@ steps:
   - --output=/tmp/outputdev
   - --location=us-east1-b
   - --cluster=cluster-1 
+  - --timeout=10m0s
   timeout: 600s
 
   # This step starts the nfs pod
