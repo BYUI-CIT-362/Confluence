@@ -77,7 +77,7 @@ metadata:
   name: confluence-prod-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: confluence-public
-    networking.gke.io/managed-certificates: confluence-certificate
+    networking.gke.io/managed-certificates: confluence-prod-certificate
     kubernetes.io/ingress.allow-http: "false"
 spec:
   backend:
@@ -87,7 +87,7 @@ spec:
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: confluence-certificate
+  name: confluence-prod-certificate
 spec:
   domains:
     - confluence.cit326.com
