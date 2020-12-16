@@ -66,16 +66,24 @@ spec:
     - port: 80
       targetPort: 8090
 ---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: confluence-prod-certificate
+spec:
+  domains:
+    - confluence.cit362.com
+---    
 apiVersion: v1
 kind: Service
 metadata:
-  name: confluence-prod-nodeport
+  name: confluence-prod-clusterip
 spec:
   selector:
     app: confluence-prod
-  type: NodePort
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
       targetPort: 8090
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -85,16 +93,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: confluence-public
     networking.gke.io/managed-certificates: confluence-prod-certificate
-    kubernetes.io/ingress.allow-http: "false"
 spec:
   backend:
-    serviceName: confluence-prod-nodeport
-    servicePort: 80
----
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: confluence-prod-certificate
-spec:
-  domains:
-    - confluence.cit362.com
+    serviceName: confluence-prod-clusterip
+    servicePort: 80      
