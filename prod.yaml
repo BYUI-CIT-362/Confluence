@@ -33,13 +33,13 @@ spec:
               mountPath: /var/atlassian/application-data/confluence
           livenessProbe: 
             httpGet:
-              path: /
+              path: /login.action
               port: 8090
             periodSeconds: 300
             timeoutSeconds: 10
           readinessProbe: 
             httpGet:
-              path: /
+              path: /login.action
               port: 8090
             initialDelaySeconds: 300
             periodSeconds: 10
@@ -93,7 +93,35 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: confluence-public
     networking.gke.io/managed-certificates: confluence-prod-certificate
+    cloud.google.com/backend-config: confluence-prod-ingress-backend-config
+    networking.gke.io/v1beta1.FrontendConfig: confluence-prod-ingress-frontend-config
 spec:
   backend:
-    serviceName: confluence-prod-clusterip
+    serviceName: confluence-prod-nodeport
     servicePort: 80      
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: confluence-prod-ingress-backend-config
+spec:
+# This overrides the default Ingress/Load Balancer Health Check
+  healthCheck:
+    checkIntervalSec: 10
+    timeoutSec: 10
+    healthyThreshold: 2
+    unhealthyThreshold: 2
+# The type is the protocol used to connect to the Pod
+    type: HTTP
+    requestPath: /login.action
+# The below port is the port to use to connect to the Pod
+    port: 80
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: confluence-prod-ingress-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT  
