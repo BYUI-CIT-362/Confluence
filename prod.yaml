@@ -109,8 +109,6 @@ kind: BackendConfig
 metadata:
   name: confluence-prod-ingress-backend-config
 spec:
-# FYI BELOW DOES NOT WORK, YOU MUST GO INTO GCP IN THE LOAD BALANCER
-# AND CONFIGURE THE HEALTHCHECK TO PORT 8090 AND THE URL TO login.action
 # This overrides the default Ingress/Load Balancer Health Check
   healthCheck:
     checkIntervalSec: 10
