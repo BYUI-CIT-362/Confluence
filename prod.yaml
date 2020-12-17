@@ -18,16 +18,16 @@ spec:
           image: atlassian/confluence-server
           env:
             - name: JVM_MAXIMUM_MEMORY
-              value: "7000m"
+              value: "5600m"
           ports:
             - containerPort: 443
           resources:
             limits:
               cpu: "2"
-              memory: "8000Mi"
+              memory: "6000Mi"
             requests:
               cpu: "2"
-              memory: "8000Mi"
+              memory: "6000Mi"
           volumeMounts:
             - name: confluence-data
               mountPath: /var/atlassian/application-data/confluence
@@ -53,6 +53,10 @@ spec:
       resources:
         requests:
           storage: 25Gi
+  - metadata:
+      name: confluence-install
+    spec:
+      accessModes: ["ReadWriteOnce"]        
 ---
 apiVersion: v1
 kind: Service
@@ -105,6 +109,8 @@ kind: BackendConfig
 metadata:
   name: confluence-prod-ingress-backend-config
 spec:
+# FYI BELOW DOES NOT WORK, YOU MUST GO INTO GCP IN THE LOAD BALANCER
+# AND CONFIGURE THE HEALTHCHECK TO PORT 8090 AND THE URL TO login.action
 # This overrides the default Ingress/Load Balancer Health Check
   healthCheck:
     checkIntervalSec: 10
