@@ -18,16 +18,16 @@ spec:
           image: atlassian/confluence-server
           env:
             - name: JVM_MAXIMUM_MEMORY
-              value: "7000m"
+              value: "5600m"
           ports:
             - containerPort: 443
           resources:
             limits:
               cpu: "2"
-              memory: "8000Mi"
+              memory: "6000Mi"
             requests:
               cpu: "2"
-              memory: "8000Mi"
+              memory: "4000Mi"
           volumeMounts:
             - name: confluence-data
               mountPath: /var/atlassian/application-data/confluence
@@ -53,6 +53,10 @@ spec:
       resources:
         requests:
           storage: 25Gi
+  - metadata:
+      name: confluence-install
+    spec:
+      accessModes: ["ReadWriteOnce"]        
 ---
 apiVersion: v1
 kind: Service
