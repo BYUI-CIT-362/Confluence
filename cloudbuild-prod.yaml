@@ -18,17 +18,17 @@ steps:
   - 'push'
   - 'gcr.io/$PROJECT_ID/confluence:$SHORT_SHA'
 
-# This step stops the pod
-- name: 'gcr.io/cloud-builders/kubectl'
-  id: Stop Production Pods
-  args:
-    - 'scale'
-    - 'statefulset'
-    - 'confluence-prod'
-    - '--replicas=0'
-  env:
-    - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'    
+# # This step stops the pod
+# - name: 'gcr.io/cloud-builders/kubectl'
+#   id: Stop Production Pods
+#   args:
+#     - 'scale'
+#     - 'statefulset'
+#     - 'confluence-prod'
+#     - '--replicas=0'
+#   env:
+#     - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+#     - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'    
 
 # This step deploys the dev application in Kubernetes
 - name: 'gcr.io/cloud-builders/gke-deploy'
