@@ -54,18 +54,6 @@ spec:
         requests:
           storage: 25Gi
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: confluence-prod-loadbalancer
-spec:
-  selector:
-    app: confluence-prod
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 8090
----
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
@@ -77,10 +65,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: confluence-prod-clusterip
+  name: confluence-prod-nodeport
 spec:
   selector:
     app: confluence-prod
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80
@@ -125,3 +114,15 @@ spec:
   redirectToHttps:
     enabled: true
     responseCodeName: MOVED_PERMANENTLY_DEFAULT  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: confluence-prod-loadbalancer
+spec:
+  selector:
+    app: confluence-prod
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8090    
