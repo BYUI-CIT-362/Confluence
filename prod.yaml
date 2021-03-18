@@ -49,19 +49,7 @@ spec:
         - name: confluence-data-prod 
           gcePersistentDisk:
             pdName:  gke-cluster-1-e42b77e1-pvc-22097859-2ecf-42e4-ab99-f03116b16e63
-            fsType: ext4                 
-  volumeClaimTemplates:
-  - metadata:
-      name: confluence-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 25Gi
-  - metadata:
-      name: confluence-install
-    spec:
-      accessModes: ["ReadWriteOnce"]        
+            fsType: ext4                     
 ---
 apiVersion: v1
 kind: Service
