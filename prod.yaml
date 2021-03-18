@@ -133,4 +133,17 @@ metadata:
 spec:
   redirectToHttps:
     enabled: true
-    responseCodeName: MOVED_PERMANENTLY_DEFAULT  
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: confluence-prod-nodeport
+spec:
+  selector:
+    app: confluence-prod
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8090    
