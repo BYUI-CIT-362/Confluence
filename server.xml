@@ -16,9 +16,9 @@
                debug="0"
                URIEncoding="UTF-8"
                secure="false"
-               scheme="http"
-               proxyName=""
-               proxyPort=""
+               scheme="https"
+               proxyName="confluence.cit362.com"
+               proxyPort="443"
                maxHttpHeaderSize="8192" />
 
 
