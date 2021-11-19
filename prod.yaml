@@ -31,8 +31,6 @@ spec:
           volumeMounts:
             - name: confluence-data-prod
               mountPath: /var/atlassian/application-data/confluence
-            - name: atlassian-config
-              mountPath: /opt/atlassian
           livenessProbe: 
             httpGet:
               path: /login.action
