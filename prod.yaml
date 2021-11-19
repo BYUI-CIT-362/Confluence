@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: confluence-prod
-          image: atlassian/confluence-server
+          image: gcr.io/constellation-275522/confluence
           env:
             - name: JVM_MAXIMUM_MEMORY
               value: "5600m"
