@@ -71,6 +71,14 @@ spec:
   domains:
     - confluence.cit362.com
 ---    
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: confluence-prod-wdd-certificate
+spec:
+  domains:
+    - confluence.citwdd.net
+---    
 apiVersion: v1
 kind: Service
 metadata:
@@ -89,7 +97,7 @@ metadata:
   name: confluence-prod-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: confluence-public
-    networking.gke.io/managed-certificates: confluence-prod-certificate
+    networking.gke.io/managed-certificates: confluence-prod-wdd-certificate
     cloud.google.com/backend-config: confluence-prod-ingress-backend-config
     networking.gke.io/v1beta1.FrontendConfig: confluence-prod-ingress-frontend-config
 spec:
